@@ -24,24 +24,34 @@ const App = () => {
 
 
   const handleLogin = (email, password) => {
-    if (email == 'admin@me.com' && password == '123') {
-      setUser('admin')
-      localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }))
-        toast.success("Successfully Logged in as Admin");
-    } else if (userData) {
-      const employee = userData.find((e) => email == e.email && e.password == password)
-      if (employee) {
-        setUser('employee')
-        setLoggedInUserData(employee)
-        localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee',data:employee }))
-          toast.success(`Welcome ${employee.firstName}!`);
-
-      }
+  if (email === 'admin@me.com' && password === '123') {
+    setUser('admin');
+    localStorage.setItem('loggedInUser', JSON.stringify({ role: 'admin' }));
+    toast.success("Successfully Logged in as Admin");
+  } else if (userData) {
+    const employee = userData.find(
+      (e) => email === e.email && e.password === password
+    );
+    if (employee) {
+      setUser('employee');
+      setLoggedInUserData(employee);
+      localStorage.setItem(
+        'loggedInUser',
+        JSON.stringify({ role: 'employee', data: employee })
+      );
+      toast.success(`Welcome ${employee.firstName}!`);
+    } else {
+      toast.error("❌ User not found. Invalid credentials!", {
+        position: "top-center"
+      });
     }
-    else {
-      alert("Invalid Credentials")
-    }
+  } else {
+    toast.error("❌ User not found. Invalid credentials!", {
+      position: "top-center"
+    });
   }
+};
+
 
 
 
